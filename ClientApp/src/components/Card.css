@@ -1,0 +1,16 @@
+.info {
+    width: 500px;
+    margin: 2%;
+    display: inline-flex;
+}
+
+img {
+
+    height: 120px;
+    width: 120px;
+}
+
+.usrDetails {
+    margin-left: 2%;
+    margin-top: 5%;
+}

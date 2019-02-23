@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Card.css';
 import { Card } from './Card';
 
 export const CardList = (props) => {
     return (
         <div>
-            <Card />
+            {props.cards.map(c => <Card key={c.id} {...c} />)}
         </div>
     );
 };

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Card.css';
 
 export const Card = (props) => {
     return (
         <div className="info">
-            <img src="https://avatars2.githubusercontent.com/u/550884?v=4" />
+            <img src={props.avatar_url} alt="MyImage" />
             <div className="usrDetails">
-                <div>Name</div>
-                <div>Company Name</div>
+                <div>{props.name}</div>
+                <div>{props.company}</div>
 
             </div>
         </div>

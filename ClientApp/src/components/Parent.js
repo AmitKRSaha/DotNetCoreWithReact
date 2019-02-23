@@ -18,7 +18,12 @@ export class Welcome extends Component {
             name: 'Amit Kumar Saha'
         });
     }
-
+    addNewCard = (cardInfo) => {
+        console.log(cardInfo);
+        this.setState({
+            cards : this.state.cards.concat(cardInfo)
+        });
+    }
     render() {
         return (
             <div style={{ margin: '5px', textAlign: 'center', padding: '5px', border: '1px solid blue' }}>
@@ -26,8 +31,8 @@ export class Welcome extends Component {
 
                 <button className="btn btn-primary" onClick={this.currentValue}>Current Value</button>
                 <div style={{ marginTop: '20px' }}>
-                    <Form />
-                    <CardList />
+                    <Form onSubmit = {this.addNewCard }/>
+                    <CardList  cards={this.state.cards}/>
                 </div>
             </div>
 

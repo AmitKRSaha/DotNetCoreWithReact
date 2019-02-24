@@ -10,8 +10,10 @@ import { Numbers } from './Numbers';
 export class Game extends React.Component {
 
     state = {
+        selectedNumbers: [],
         numberOfStars: 1 + Math.floor(Math.random() * 9),
-        selectedNumbers: []
+        answerIsCorrect: null,
+        
     }
 
     selectNumber = (clickedNumber) => {
@@ -24,24 +26,31 @@ export class Game extends React.Component {
     };
 
     unselectNumber = (clickedNumber) => {
-        console.log(clickedNumber);
         this.setState(prevState => ({
             selectedNumbers: prevState.selectedNumbers
                 .filter(number => number !== clickedNumber)
         }));
     };
+    
+    checkAnswer = () => {
+        this.setState(prevState => ({
+          answerIsCorrect: prevState.randomNumberOfStars ===
+            prevState.selectedNumbers.reduce((acc, n) => acc + n, 0)
+      }));
+    };
 
     render() {
+        const { selectedNumbers, numberOfStars } = this.state;
         return (
             <div className="container">
                 <h2> Play Nine Game</h2>
                 <hr />
                 <div>
                     <div className="row">
-                        <div className="col-5"><Stars numberOfStars={this.state.numberOfStars} /></div>
-                        <div className="col-3"><Button /></div>
+                        <div className="col-5"><Stars numberOfStars={numberOfStars} /></div>
+                        <div className="col-3"><Button selectedNumbers={selectedNumbers}/></div>
 
-                        <div className="col-4"><Answer selectedNumbers={this.state.selectedNumbers} 
+                        <div className="col-4"><Answer selectedNumbers={selectedNumbers} 
                                 unselectNumber={this.unselectNumber} /></div>
 
                     </div>
@@ -49,7 +58,7 @@ export class Game extends React.Component {
 
                 <br /><br />
 
-                <Numbers selectedNumbers={this.state.selectedNumbers}
+                <Numbers selectedNumbers={selectedNumbers}
                     selectNumber={this.selectNumber} />
             </div>
         )

@@ -13,7 +13,7 @@ export class Game extends React.Component {
         selectedNumbers: [],
         numberOfStars: 1 + Math.floor(Math.random() * 9),
         answerIsCorrect: null,
-        
+        usedNumbers: []
     }
 
     selectNumber = (clickedNumber) => {
@@ -31,16 +31,25 @@ export class Game extends React.Component {
                 .filter(number => number !== clickedNumber)
         }));
     };
-    
+
     checkAnswer = () => {
         this.setState(prevState => ({
-          answerIsCorrect: prevState.randomNumberOfStars ===
-            prevState.selectedNumbers.reduce((acc, n) => acc + n, 0)
+            answerIsCorrect: prevState.numberOfStars ===
+                prevState.selectedNumbers.reduce((acc, n) => acc + n, 0)
+        }));
+    };
+
+    acceptAnswer = () => {
+        this.setState(prevState => ({
+          usedNumbers: prevState.usedNumbers.concat(prevState.selectedNumbers),
+        selectedNumbers: [],
+        answerIsCorrect: null,
+        numberOfStars: 1 + Math.floor(Math.random()*9),
       }));
     };
 
     render() {
-        const { selectedNumbers, numberOfStars } = this.state;
+        const { selectedNumbers, numberOfStars, answerIsCorrect, usedNumbers } = this.state;
         return (
             <div className="container">
                 <h2> Play Nine Game</h2>
@@ -48,10 +57,13 @@ export class Game extends React.Component {
                 <div>
                     <div className="row">
                         <div className="col-5"><Stars numberOfStars={numberOfStars} /></div>
-                        <div className="col-3"><Button selectedNumbers={selectedNumbers}/></div>
+                        <div className="col-3"><Button selectedNumbers={selectedNumbers}
+                            checkAnswer={this.checkAnswer}
+                            acceptAnswer={this.acceptAnswer}
+                            answerIsCorrect={answerIsCorrect} /></div>
 
-                        <div className="col-4"><Answer selectedNumbers={selectedNumbers} 
-                                unselectNumber={this.unselectNumber} /></div>
+                        <div className="col-4"><Answer selectedNumbers={selectedNumbers}
+                            unselectNumber={this.unselectNumber} /></div>
 
                     </div>
                 </div>
@@ -59,7 +71,7 @@ export class Game extends React.Component {
                 <br /><br />
 
                 <Numbers selectedNumbers={selectedNumbers}
-                    selectNumber={this.selectNumber} />
+                    selectNumber={this.selectNumber} usedNumbers={usedNumbers}/>
             </div>
         )
 

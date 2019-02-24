@@ -10,8 +10,10 @@ export const Numbers = (props) => {
             return 'selected';
         }
     }
+    
 
-    let spanNumber = NumberList.map((x, i) => <span key={i} className={numberClassName(x)}> {x} </span>);
+    let spanNumber = NumberList.map((x, i) => <span key={i} className={numberClassName(x)}
+                     onClick = {() => props.selectNumber(x)} > {x} </span>);
     return (
         <div className="card text-center">
             <div>

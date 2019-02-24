@@ -1,4 +1,6 @@
 import React from 'react';
+import * as _ from 'lodash';
+
 
 import { Stars } from './Stars';
 import { Button } from './Button';
@@ -7,7 +9,10 @@ import { Numbers } from './Numbers';
 
 export class Game extends React.Component {
 
-   
+   state = {
+    numberOfStars : 1 + Math.floor(Math.random()*9),
+    selectedNumbers: []
+   }
 
     render() {
         return (
@@ -16,17 +21,17 @@ export class Game extends React.Component {
                 <hr />
                 <div>
                     <div className="row">
-                        <div className="col-5"><Stars /></div>
+                        <div className="col-5"><Stars numberOfStars ={this.state.numberOfStars}/></div>
                         <div className="col-3"><Button /></div>
 
-                        <div className="col-4"><Answer /></div>
+                        <div className="col-4"><Answer selectedNumbers={this.state.selectedNumbers}/></div>
 
                     </div>
                 </div>
 
                 <br /><br />
 
-                <Numbers />
+                <Numbers selectedNumbers={this.state.selectedNumbers}/>
             </div>
         )
 

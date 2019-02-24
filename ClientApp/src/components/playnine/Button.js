@@ -1,7 +1,9 @@
-import React  from 'react';
+import React from 'react';
 
 export const Button = (props) => {
     return (
-        <div> Button</div>
+        <div className="col-2">
+            <button>=</button>
+        </div>
     )
 }
